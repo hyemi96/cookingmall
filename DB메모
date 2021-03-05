@@ -1,3 +1,43 @@
+WebContent / main.jsp / 시작 (무조건)
+/*로그인 없이 시작해서 아이디를 널값을 주고 홈페이지를 이용할 방법을 찾았으나 해결하기 어렵더라고요*/
+
+
+목적:
+최신 요리방송 프로그램을 통하여 레시피 동영상을 올리면
+홈페이지 이용자들이 그 레시피 동영상을 볼 수 있고 거기 재료에 맞는 식자재를 한 번에 구매하고 그 밖에 낱개로도 식품을 판매하는 식품 구매 쇼핑몰 이다.
+
+
+구현하고자 했지만 다 성공 하지 못한 것
+-동영상 업로드
+-한번에 재료를 구매하는 식품 패키지(여러가지 재료를 세트를 구매하는 창)
+-제품을 누르면 나오는 상품 리뷰에 사진 리뷰 추가하기
+-회사 소개 홈페이지 부분에 게시판 2개(FQO, 채용공고) 추가
+-검색기능 구현 성공하기(카테고리나 이름을 선탹하여 동일한 텍스트 목록 나오게하기)
+-게시판/ 장바구니 / 구매버튼 누르면 결제창 Form 만들기 및 바꾸기
+-마이페이지에 회원정보 조회 및 수정
+-기타 식품 구매 메뉴에서 드롭메뉴를 만들었는데 밑에 드롭이 제대로 안나옴
+
+
+지금까지 한 것
+-로그인 화면 이미지 전체화면으로 설정
+-부트스트랩 적용
+-마이페이지에서 장바구니,결제내역 ,총 결제 Point 확인 
+-검색 부분 Form
+-로그인 / 로그아웃 로그인한 id가 위에 나오게 탑부분 수정
+-상품 리뷰를 prodView에 새로 만들고자 했음
+-그 밖에 회사페이지 수정, 회원가입 주소 추가, 바텀하고 영상 하이퍼링크 등등 자잘한거 추가 및 수정..
+
+지금까지 못고친 오류
+-아이디/비번 찾기에서 비번 찾기나 있는 아이디도 못찾는 경우가 발생했던 것 같다.
+-원래 상품 업로드가 문제가 없었는데 동영상 업로드를 만들기 한 부분부터 File객체에 충돌이 나는건지 상품 업로드를 하면 홈화면에 업로드가 잘 되어있지 않거나, 관리자 홈페이지에서 삭제가 안이뤄지고 있다
+-상품 리뷰를 prodView에 새로 만들고자 했지만 기존 게시판(요리 노하우)이랑 시간 부족으로 아직 똑같음 그리고 글쓰기 부터 오류나옴
+-기타 식품 구매 메뉴에서 드롭메뉴를 만들었는데 밑에 드롭이 제대로 안나옴
+
+결과 : 생각보다 할게 계속 생기고 막힌 부분을 잘 해결 못해서 50퍼 정도 완성한거 같네요..
+
+
+
+
 create sequence memseq
 increment by 1
 start with 1
@@ -14,6 +54,7 @@ create table members(
 	rrn1 varchar2(10),
 	rrn2 varchar2(10),
 	email varchar2(20),
+	adress  varchar2(50), ---주소추가
 	hp1 varchar2(10),
 	hp2 varchar2(10),
 	hp3 varchar2(20),
@@ -97,7 +138,8 @@ start with 1
 minvalue 1
 maxvalue 10000
 nocache;
- 
+
+ select * from orders   ;
  
 -- orderId(주문 아이디) : 동일한 시간대에 주문한 내역은 동일한 주문 아이디를 가진다.
 drop table orders purge ;
@@ -107,6 +149,7 @@ create table orders(
 	memno number, -- 회원번호
 	pnum number, -- 상품번호
 	qty number, -- 수량
+	point number, -- 포인트
 	amount number -- 전체가격
 );
 
@@ -134,3 +177,42 @@ start with 1
 minvalue 1
 maxvalue 10000
 nocache;
+
+
+
+
+
+
+---------------------------------------------------------
+
+-- 비디오 테이블
+drop sequence catvideo ;
+
+create sequence catvideo 
+increment by 1
+start with 1
+minvalue 1
+maxvalue 10000
+nocache;
+
+drop table video purge ;
+create table video(
+	vnum 		int not null primary key,
+	vname 		varchar2(50) not null,
+	vcategory_fk  	varchar2(20) not null, -- 선택한 카테고리
+	vvideo   		varchar2(30),
+	vqty   int default 0,
+	vprice   		int default 0,
+	vspec   		varchar2(12),
+	vcontents 	varchar2(300),
+	vpoint   		int default 0,
+	vinputdate 	varchar2(10)
+);
+
+col vname for a12
+col vcompany for a12
+col vimage for a12
+col vcontents for a12
+select * from video  ;
+
+-------------------------------------------------------------동영상부분은 아직 다 완성 못했어요 그래서 그냥 일단 하이퍼 링크만 달았어요

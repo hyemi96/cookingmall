@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-loginPro.jsp<br>
+<!-- loginPro.jsp<br> -->
 
 <%
 	request.setCharacterEncoding("UTF-8") ;
@@ -18,16 +18,16 @@ loginPro.jsp<br>
 	if(member != null){
 		String mid = member.getId();
 		session.setAttribute("mid", mid); // mid:hong
-
+		session.setAttribute("mno", member.getNo()); // mno:2
 		
 		if(mid.equals("admin")){ // 관리자
 			viewPage = request.getContextPath()+"/myshop/admin/main.jsp";
 		}
 		else{ // 일반 사용자
-			viewPage = request.getContextPath()+"/myshop/display/mall.jsp";
+			viewPage = request.getContextPath()+"/myshop/display/mall2.jsp";
 		}
 	}
-	else{
+	else{  
 %>
 		<script type="text/javascript">
 			alert("가입하지 않은 회원입니다.");

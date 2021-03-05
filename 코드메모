@@ -1,0 +1,100 @@
+카테고리 추가 코드
+
+		<br>								
+				 <%
+					CategoryDao cdao = CategoryDao.getInstance();
+					ArrayList<CategoryBean> lists = cdao.getAllCategory();
+					if(lists.size() == 0){
+						out.print("<tr><td>등록된 카테고리없음</td></tr>");
+						return;
+					}
+					
+					for( CategoryBean cbean : lists){
+						String cname = cbean.getCname();
+						String code = cbean.getCode();
+				%>
+						<tr>
+							<td>
+								<%=cname %> [<%=code %>]
+							</td>
+						</tr>
+				<%							
+					}
+				%> 
+			</table>
+		</td>
+		
+		<td width=300px align=center valign="top">
+		
+		
+		
+		
+		
+		<form action="loginPro.jsp" method="post">	
+
+	<table  align="center">  
+	
+		<tr>
+		<tr>
+			<td bgcolor="red" align="center">ID</td>
+			<td><input type="text" name="id" value=""></td>
+		</tr>
+		
+		<tr>
+			<td bgcolor="red" align="center">PW</td>
+			<td><input type="password" name="password" value=""></td>
+		</tr>
+		
+		<tr>
+			<td colspan=2>  
+				<input type="submit" value="로그인">
+				<input type="button" value="회원 가입" onClick="location.href='myshop/member/register.jsp'">
+				<input type="button" value="아이디 찾기" onClick="location.href='findid.jsp'">
+				<input type="button" value="비번 찾기" onClick="location.href='findpwd.jsp'">
+			</td>
+		</tr>
+	</table>
+	
+</form>
+
+   <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/kfonts2.css" rel="stylesheet">
+    
+    
+    
+        
+<table width="90%" border="1" align="center" class="outline">
+	<tr class="m2">
+		<td colspan="3" align="center">
+			<h4>결재 내역 보기</h4>
+		</td>
+	</tr>
+	<tr class="m1">
+		<th width="40%">상품명</th>
+		<th width="20%">수량</th>
+		<th width="40%">금액</th>
+	</tr>
+	<%
+	int totalPrice = 0;
+	Vector<ProductBean> cv = cb.getAllProducts();
+	for( ProductBean pbean : cv){
+	%>
+		<tr>
+			<td><%=pbean.getPname() %></td>
+			<td><%=pbean.getPqty() %></td>
+			<td><%=pbean.getTotalPrice() %></td>  
+		</tr>
+	<%
+		totalPrice += pbean.getTotalPrice();
+	}//for
+	%>
+	<tr class="m1">
+		<td colspan="3" align="center">
+			<b>결재하신 총액은:</b>
+			<font color=red><%=totalPrice %>원</font>
+		</td>
+	</tr>
+</table>
+
+    
+		

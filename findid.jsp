@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-findpwd.jsp<br>
-
-<form action="findpwdProc.jsp" method="post">
+    
+findid.jsp<br>
+<form action="findidProc.jsp" method="post">
 <table border="1" align="center">
-	<tr>
-		<td bgcolor="FFBC9B" align="center">아이디</td>
-		<td><input type="text" name="id" value="admin">    	
-	</tr>
 	<tr>
 		<td bgcolor="FFBC9B" align="center">이름</td>
 		<td><input type="text" name="name" value="어드민">    	
@@ -21,8 +17,8 @@ findpwd.jsp<br>
 		</td>				
 	</tr>
 	<tr>
-		<td colspan="2" bgcolor="FF5A5A"  align="center">
-			<input type="submit" value="비번 찾기">
+		<td colspan="2" bgcolor="FF5A5A" align="center">
+			<input type="submit" value="아이디 찾기">
 			<input type="reset" value="취소" onClick="location.href='./main.jsp'">
 		</td>
 	</tr>		
